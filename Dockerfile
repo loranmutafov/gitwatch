@@ -1,11 +1,11 @@
-FROM alpine:3.1
+FROM alpine
 # hadolint ignore=DL3018
-RUN apk add --no-cache bash git inotify-tools openssh
 
-RUN mkdir -p /app
 WORKDIR /app
-COPY gitwatch.sh ./ 
+COPY gitwatch.sh ./
 
-RUN chmod 755 -- *.sh
+RUN apk update && \
+    apk add --no-cache bash git inotify-tools openssh && \
+    chmod 755 -- *.sh
 
 ENTRYPOINT ["./gitwatch.sh"]
